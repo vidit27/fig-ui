@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI for India — Figma Design Spec</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Noto+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #FF6B00; --saffron-b: #FF8C35; --saffron-t: #FFF3E8;
+  --navy:    #0A1628; --navy-l:   #1E3A5F;  --navy-t:   #EEF3FA;
+  --green:   #0E8C00; --green-b:  #12B000;  --green-t:  #EDFAEB;
+  --sand:    #FAF6F0; --sand-d:   #EDE5D8;
+  --white:   #FFFFFF; --text: #0A1628; --text-m: #3D5168; --text-l: #7A8FA6;
+  --mono: 'JetBrains Mono', monospace;
+  --d: 'Baloo 2', cursive;
+  --b: 'Noto Sans', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body { font-family:var(--b); background:#F0EDE8; color:var(--text); }
+
+/* ── PAGE HEADER ── */
+.pg-header {
+  background: var(--navy); color: white;
+  padding: 40px 48px 32px;
+  border-bottom: 4px solid var(--saffron);
+}
+.pg-title { font-family:var(--d); font-size:36px; font-weight:800; line-height:1.1; }
+.pg-title span { color: var(--saffron-b); }
+.pg-meta { font-size:13px; color:rgba(255,255,255,.55); margin-top:8px; display:flex; gap:24px; flex-wrap:wrap; }
+.badge { display:inline-flex; align-items:center; gap:5px; background:rgba(255,255,255,.1); padding:4px 12px; border-radius:4px; font-size:11px; font-weight:600; letter-spacing:.06em; }
+
+/* ── TABS ── */
+.tabs { background: var(--white); border-bottom:2px solid var(--sand-d); padding:0 48px; display:flex; gap:0; position:sticky; top:0; z-index:50; }
+.tab { padding:16px 20px; font-size:13px; font-weight:600; color:var(--text-l); border:none; background:none; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:color .2s,border-color .2s; }
+.tab.on { color:var(--saffron); border-bottom-color:var(--saffron); }
+.panel { display:none; padding:40px 48px 80px; max-width:1280px; }
+.panel.on { display:block; }
+
+/* ── SECTION HEADERS ── */
+.s-head { font-family:var(--d); font-size:22px; font-weight:800; color:var(--navy); margin-bottom:6px; }
+.s-sub  { font-size:13px; color:var(--text-l); margin-bottom:32px; }
+.divider { border:none; border-top:1px solid var(--sand-d); margin:40px 0; }
+
+/* ── GRID DEMO ── */
+.grid-wrap { background:var(--white); border-radius:12px; padding:28px; border:1px solid var(--sand-d); margin-bottom:16px; }
+.grid-row { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+.grid-cell {
+  height:32px; border-radius:4px; display:flex; align-items:center; padding:0 10px;
+  font-size:11px; font-weight:600; white-space:nowrap;
+  font-family:var(--mono);
+}
+.gc-s { background:rgba(255,107,0,.12); color:var(--saffron); }
+.gc-n { background:rgba(10,22,40,.08); color:var(--navy-l); }
+.gc-g { background:rgba(14,140,0,.10); color:var(--green); }
+.gc-m { background:var(--sand-d); color:var(--text-l); }
+
+/* ── COLOR SWATCHES ── */
+.swatch-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; }
+.swatch { border-radius:10px; overflow:hidden; border:1px solid rgba(0,0,0,.07); }
+.sw-color { height:64px; }
+.sw-info { background:white; padding:10px; }
+.sw-name { font-size:12px; font-weight:700; color:var(--text); }
+.sw-hex  { font-family:var(--mono); font-size:11px; color:var(--text-l); margin-top:2px; }
+.sw-use  { font-size:10px; color:var(--text-l); margin-top:3px; line-height:1.4; }
+
+/* ── TYPE SCALE ── */
+.type-row { display:flex; align-items:baseline; gap:16px; padding:12px 0; border-bottom:1px solid var(--sand-d); }
+.type-row:last-child { border:none; }
+.type-meta { min-width:160px; flex-shrink:0; }
+.type-name  { font-size:11px; font-weight:700; color:var(--text-l); text-transform:uppercase; letter-spacing:.06em; }
+.type-spec  { font-family:var(--mono); font-size:10px; color:var(--saffron); margin-top:2px; }
+.type-sample { flex:1; }
+
+/* ── COMPONENT SPECS ── */
+.comp-block { background:var(--white); border-radius:12px; margin-bottom:20px; border:1px solid var(--sand-d); overflow:hidden; }
+.comp-head { background:var(--navy); color:white; padding:14px 20px; font-family:var(--d); font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:space-between; }
+.comp-body { padding:20px; }
+.comp-preview { background:var(--sand); border-radius:8px; padding:24px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; }
+.spec-table { width:100%; border-collapse:collapse; font-size:12px; }
+.spec-table th { text-align:left; padding:8px 12px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-l); background:var(--sand); border-bottom:1px solid var(--sand-d); }
+.spec-table td { padding:8px 12px; border-bottom:1px solid var(--sand-d); color:var(--text-m); vertical-align:top; }
+.spec-table td:first-child { font-weight:600; color:var(--text); }
+.spec-table td code { font-family:var(--mono); font-size:11px; background:var(--sand); padding:1px 5px; border-radius:3px; color:var(--saffron); }
+.spec-table tr:last-child td { border:none; }
+
+/* ── SPACING TABLE ── */
+.sp-row { display:flex; align-items:center; gap:16px; padding:8px 0; border-bottom:1px solid var(--sand-d); }
+.sp-row:last-child { border:none; }
+.sp-bar-wrap { flex:1; max-width:400px; }
+.sp-bar { height:16px; border-radius:3px; background:var(--saffron); display:flex; align-items:center; padding:0 6px; }
+.sp-val { font-family:var(--mono); font-size:11px; font-weight:700; color:var(--text); min-width:48px; }
+.sp-name { font-size:12px; color:var(--text-l); min-width:60px; }
+.sp-use { font-size:11px; color:var(--text-m); flex:1; }
+
+/* ── MICRO INTERACTION CARDS ── */
+.mi-card { background:var(--white); border-radius:12px; margin-bottom:20px; border:1px solid var(--sand-d); }
+.mi-head { padding:16px 20px; border-bottom:1px solid var(--sand-d); display:flex; align-items:center; gap:12px; }
+.mi-num { width:32px; height:32px; border-radius:50%; background:var(--saffron); color:white; font-family:var(--d); font-size:14px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.mi-title { font-family:var(--d); font-size:16px; font-weight:800; color:var(--navy); }
+.mi-trigger { font-size:11px; color:var(--text-l); }
+.mi-body { padding:20px; }
+.mi-desc { font-size:13px; color:var(--text-m); line-height:1.7; margin-bottom:16px; }
+.mi-props { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.mi-prop { background:var(--sand); border-radius:8px; padding:12px; }
+.mi-prop-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--text-l); margin-bottom:4px; }
+.mi-prop-val { font-family:var(--mono); font-size:12px; color:var(--navy); font-weight:600; }
+
+/* ── LIVE COMPONENTS (preview) ── */
+.btn-sf {
+  font-family:var(--d); font-size:16px; font-weight:800;
+  color:white; background:var(--saffron);
+  padding:16px 32px; border-radius:14px; border:none; cursor:pointer;
+  box-shadow:0 6px 24px rgba(255,107,0,.35);
+  position:relative; overflow:hidden;
+  transition:transform .18s,box-shadow .18s;
+  display:inline-flex; align-items:center; gap:10px;
+}
+.btn-sf:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,107,0,.5);}
+.lang-pill-demo {
+  padding:7px 16px; border-radius:100px;
+  font-family:var(--b); font-size:13px; font-weight:700;
+  border:1.5px solid rgba(10,22,40,.2);
+  background:white; color:var(--text-m);
+  cursor:pointer; transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  display:inline-block;
+}
+.lang-pill-demo.a{background:var(--saffron);color:white;border-color:var(--saffron);transform:scale(1.08);}
+.stat-demo { text-align:center; padding:24px; }
+.stat-demo-num { font-family:var(--d); font-size:40px; font-weight:800; color:var(--navy); line-height:1; }
+.stat-demo-unit { font-size:22px; color:var(--navy); }
+.stat-demo-label { font-size:12px; font-weight:600; color:var(--text-l); margin-top:8px; letter-spacing:.04em; }
+
+/* ── FIGMA INSTRUCTIONS ── */
+.instructions { background:var(--navy-t); border-radius:12px; padding:24px; border:1px solid rgba(10,22,40,.1); }
+.instr-title { font-family:var(--d); font-size:16px; font-weight:800; color:var(--navy); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.instr-step { display:flex; gap:12px; padding:8px 0; font-size:13px; color:var(--text-m); line-height:1.6; border-bottom:1px solid rgba(10,22,40,.07); }
+.instr-step:last-child{border:none;}
+.instr-n { width:22px; height:22px; border-radius:50%; background:var(--saffron); color:white; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+code { font-family:var(--mono); font-size:11px; background:rgba(255,107,0,.1); padding:1px 5px; border-radius:3px; color:var(--saffron); }
+</style>
+</head>
+<body>
+
+<div class="pg-header">
+  <div class="pg-title">AI for India — <span>Design Spec</span></div>
+  <div class="pg-meta">
+    <span class="badge">🎨 Figma Handoff v2.0</span>
+    <span class="badge">📐 8pt Grid System</span>
+    <span class="badge">🇮🇳 3-Colour Tricolor Palette</span>
+    <span class="badge">✦ Baloo 2 + Noto Sans</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="show('tokens',this)">Design Tokens</button>
+  <button class="tab" onclick="show('spacing',this)">8pt Grid</button>
+  <button class="tab" onclick="show('type',this)">Typography</button>
+  <button class="tab" onclick="show('colors',this)">Colours</button>
+  <button class="tab" onclick="show('components',this)">Components</button>
+  <button class="tab" onclick="show('motion',this)">Motion</button>
+  <button class="tab" onclick="show('figma',this)">Figma Import</button>
+</div>
+
+<!-- ── TOKENS ── -->
+<div class="panel on" id="p-tokens">
+  <div class="s-head">Design Tokens Overview</div>
+  <div class="s-sub">Single source of truth. Import via Tokens Studio plugin into Figma.</div>
+
+  <div class="grid-wrap">
+    <div style="font-size:12px;font-weight:700;color:var(--text-l);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px">Token Categories</div>
+    <div class="grid-row">
+      <div class="grid-cell gc-s">spacing.1–16</div>
+      <div class="grid-cell gc-n">borderRadius.sm/md/lg/pill</div>
+      <div class="grid-cell gc-g">colors.saffron/navy/green</div>
+      <div class="grid-cell gc-m">typography.fontFamily/Size/Weight</div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-cell gc-s">components.navbar</div>
+      <div class="grid-cell gc-n">components.statsBar</div>
+      <div class="grid-cell gc-g">components.featureCard</div>
+      <div class="grid-cell gc-m">components.ctaPrimary</div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <div class="instr-title">⬇️ How to import tokens into Figma</div>
+    <div class="instr-step"><div class="instr-n">1</div><div>Install <strong>Tokens Studio for Figma</strong> plugin (free, from Figma Community)</div></div>
+    <div class="instr-step"><div class="instr-n">2</div><div>Open Tokens Studio → click <strong>Load tokens</strong> → paste the contents of <code>figma-tokens.json</code></div></div>
+    <div class="instr-step"><div class="instr-n">3</div><div>Click <strong>Apply to document</strong> — all colour, spacing and typography variables populate automatically</div></div>
+    <div class="instr-step"><div class="instr-n">4</div><div>Use <strong>Apply to selection</strong> on any frame to instantly style it with the AI India token set</div></div>
+    <div class="instr-step"><div class="instr-n">5</div><div>To change a colour globally, edit the token value once — all components update everywhere</div></div>
+  </div>
+</div>
+
+<!-- ── SPACING ── -->
+<div class="panel" id="p-spacing">
+  <div class="s-head">8pt Grid System</div>
+  <div class="s-sub">Every padding, margin, gap and size is a multiple of 8px. No 10px, 15px, 22px or 25px anywhere.</div>
+
+  <div style="background:var(--white);border-radius:12px;padding:28px;border:1px solid var(--sand-d);margin-bottom:24px">
+    <div style="font-size:12px;font-weight:700;color:var(--text-l);text-transform:uppercase;letter-spacing:.07em;margin-bottom:20px">Spacing Scale</div>
+
+    <div class="sp-row"><div class="sp-name">spacing.1</div><div class="sp-val">8px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:8px;background:rgba(255,107,0,.3)"></div></div><div class="sp-use">Icon gaps, tiny nudges</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.2</div><div class="sp-val">16px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:16px;background:rgba(255,107,0,.4)"></div></div><div class="sp-use">Button padding-V, lang bar padding-V, grid gap small</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.3</div><div class="sp-val">24px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:24px;background:rgba(255,107,0,.5)"></div></div><div class="sp-use">Card padding-H, nav padding-H, section padding-H, grid gap</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.4</div><div class="sp-val">32px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:32px;background:rgba(255,107,0,.6)"></div></div><div class="sp-use">Card padding-V, stats padding-V, CTA button padding</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.5</div><div class="sp-val">40px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:40px;background:rgba(255,107,0,.65)"></div></div><div class="sp-use">Footer column gap</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.6</div><div class="sp-val">48px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:48px;background:rgba(255,107,0,.7)"></div></div><div class="sp-use">Section margins-top for grids, footer padding-bottom</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.7</div><div class="sp-val">56px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:56px;background:rgba(255,107,0,.75)"></div></div><div class="sp-use">Feature card icon size</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.8</div><div class="sp-val">64px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:64px;background:rgba(255,107,0,.8)"></div></div><div class="sp-use">Navbar height, voice FAB size, footer padding-top</div></div>
+    <div class="sp-row"><div class="sp-name">spacing.10</div><div class="sp-val">80px</div><div class="sp-bar-wrap"><div class="sp-bar" style="width:80px;background:var(--saffron)"></div></div><div class="sp-use">Section vertical padding (all sections)</div></div>
+  </div>
+
+  <div style="background:var(--white);border-radius:12px;padding:28px;border:1px solid var(--sand-d)">
+    <div style="font-size:12px;font-weight:700;color:var(--text-l);text-transform:uppercase;letter-spacing:.07em;margin-bottom:20px">Border Radius Scale</div>
+    <div class="sp-row"><div class="sp-name">sm</div><div class="sp-val">8px</div><div class="sp-bar-wrap"></div><div class="sp-use">Buttons, badges, hamburger, login button</div></div>
+    <div class="sp-row"><div class="sp-name">md</div><div class="sp-val">14px</div><div class="sp-bar-wrap"></div><div class="sp-use">CTA primary button, feature icon bg, navbar items</div></div>
+    <div class="sp-row"><div class="sp-name">lg</div><div class="sp-val">22px</div><div class="sp-bar-wrap"></div><div class="sp-use">Feature cards, testimonials, step cards, hero visual, modals</div></div>
+    <div class="sp-row"><div class="sp-name">pill</div><div class="sp-val">100px</div><div class="sp-bar-wrap"></div><div class="sp-use">Language pills, tags, FAB</div></div>
+  </div>
+</div>
+
+<!-- ── TYPOGRAPHY ── -->
+<div class="panel" id="p-type">
+  <div class="s-head">Typography System</div>
+  <div class="s-sub">Baloo 2 (display) + Noto Sans (body). Both support Devanagari and all major Indian scripts.</div>
+
+  <div style="background:var(--white);border-radius:12px;padding:28px;border:1px solid var(--sand-d)">
+
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Hero H1</div><div class="type-spec">Baloo 2 · 800 · 56px · lh 1.1</div></div>
+      <div class="type-sample" style="font-family:var(--d);font-size:40px;font-weight:800;color:var(--navy);line-height:1.1">Artificial Intelligence</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Section H2</div><div class="type-spec">Baloo 2 · 800 · 32–38px · lh 1.2</div></div>
+      <div class="type-sample" style="font-family:var(--d);font-size:30px;font-weight:800;color:var(--navy)">Our Key Features</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Feature Title</div><div class="type-spec">Baloo 2 · 800 · 18px · lh 1.3</div></div>
+      <div class="type-sample" style="font-family:var(--d);font-size:18px;font-weight:800;color:var(--navy)">Kisan AI · किसान AI</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">CTA Button</div><div class="type-spec">Baloo 2 · 800 · 17px</div></div>
+      <div class="type-sample" style="font-family:var(--d);font-size:17px;font-weight:800;color:var(--saffron)">🚀 GET STARTED FREE</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Body Copy</div><div class="type-spec">Noto Sans · 400 · 15px · lh 1.75</div></div>
+      <div class="type-sample" style="font-size:15px;color:var(--text-m);line-height:1.75">Smart crop recommendations, weather alerts, and mandi prices for farmers across India.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Card Desc</div><div class="type-spec">Noto Sans · 400 · 13px · lh 1.7</div></div>
+      <div class="type-sample" style="font-size:13px;color:var(--text-m);line-height:1.7">AI-powered symptom checker and nearest hospital locator available in 22 languages.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Stat Number</div><div class="type-spec">Baloo 2 · 800 · 40px · navy</div></div>
+      <div class="type-sample" style="display:flex;gap:24px">
+        <span style="font-family:var(--d);font-size:40px;font-weight:800;color:var(--navy)">1<span style="font-size:24px">Cr+</span></span>
+        <span style="font-family:var(--d);font-size:40px;font-weight:800;color:var(--navy)">99<span style="font-size:24px">.2%</span></span>
+      </div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Stat Label</div><div class="type-spec">Noto Sans · 600 · 12px · text-light</div></div>
+      <div class="type-sample" style="font-size:12px;font-weight:600;color:var(--text-l);letter-spacing:.04em">ACTIVE USERS</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Section Tag</div><div class="type-spec">Noto Sans · 800 · 11px · uppercase · saffron</div></div>
+      <div class="type-sample" style="font-size:11px;font-weight:800;color:var(--saffron);letter-spacing:.12em;text-transform:uppercase">OUR KEY FEATURES</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta"><div class="type-name">Hindi Body</div><div class="type-spec">Noto Sans · 400 · 15px (Devanagari)</div></div>
+      <div class="type-sample" style="font-size:15px;color:var(--text-m);line-height:1.75">स्मार्ट फसल सुझाव, मौसम अलर्ट, और मंडी भाव — आपकी भाषा में।</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COLOURS ── -->
+<div class="panel" id="p-colors">
+  <div class="s-head">Colour System — 3 Primary Colours</div>
+  <div class="s-sub">Saffron #FF6B00 · Navy #0A1628 · Green #0E8C00 — all other values are tints, shades, or opacity variants.</div>
+
+  <div style="margin-bottom:24px">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-l);margin-bottom:12px">Saffron Ramp</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="sw-color" style="background:#FF8C35"></div><div class="sw-info"><div class="sw-name">Saffron Bright</div><div class="sw-hex">#FF8C35</div><div class="sw-use">Hover, hero em text, dot 1</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#FF6B00"></div><div class="sw-info"><div class="sw-name">Saffron</div><div class="sw-hex">#FF6B00</div><div class="sw-use">CTAs, accents, badges, FAB, active pills</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#CC5500"></div><div class="sw-info"><div class="sw-name">Saffron Dark</div><div class="sw-hex">#CC5500</div><div class="sw-use">Pressed/active link colour</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#FFF3E8"></div><div class="sw-info"><div class="sw-name">Saffron Tint</div><div class="sw-hex">#FFF3E8</div><div class="sw-use">Card icon bg, hover fills, stat hover bg</div></div></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:24px">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-l);margin-bottom:12px">Navy Ramp</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="sw-color" style="background:#0A1628"></div><div class="sw-info"><div class="sw-name">Navy</div><div class="sw-hex">#0A1628</div><div class="sw-use">Hero bg, footer bg, navbar, primary text, stat numbers, stat units</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#132440"></div><div class="sw-info"><div class="sw-name">Navy Mid</div><div class="sw-hex">#132440</div><div class="sw-use">Hero gradient end, concept strip</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#1E3A5F"></div><div class="sw-info"><div class="sw-name">Navy Light</div><div class="sw-hex">#1E3A5F</div><div class="sw-use">Login btn hover, nav link hover</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#EEF3FA; border:1px solid #DDE5F0"></div><div class="sw-info"><div class="sw-name">Navy Tint</div><div class="sw-hex">#EEF3FA</div><div class="sw-use">Shiksha Bot icon bg, Sarkari AI icon bg</div></div></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:24px">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-l);margin-bottom:12px">Green Ramp</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="sw-color" style="background:#0E8C00"></div><div class="sw-info"><div class="sw-name">Green</div><div class="sw-hex">#0E8C00</div><div class="sw-use">Success states, Kisan AI accent, step card done</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#12B000"></div><div class="sw-info"><div class="sw-name">Green Bright</div><div class="sw-hex">#12B000</div><div class="sw-use">Hover success, loading bar start, ai dot 3</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#EDFAEB; border:1px solid #C8ECC5"></div><div class="sw-info"><div class="sw-name">Green Tint</div><div class="sw-hex">#EDFAEB</div><div class="sw-use">Kisan AI icon bg, success backgrounds</div></div></div>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-l);margin-bottom:12px">Neutrals + Semantic</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="sw-color" style="background:#FAF6F0; border:1px solid #EDE5D8"></div><div class="sw-info"><div class="sw-name">Sand</div><div class="sw-hex">#FAF6F0</div><div class="sw-use">Page background</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#EDE5D8"></div><div class="sw-info"><div class="sw-name">Sand Dark</div><div class="sw-hex">#EDE5D8</div><div class="sw-use">Borders, dividers, card borders</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#3D5168"></div><div class="sw-info"><div class="sw-name">Text Mid</div><div class="sw-hex">#3D5168</div><div class="sw-use">Secondary text, card descriptions</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#7A8FA6"></div><div class="sw-info"><div class="sw-name">Text Light</div><div class="sw-hex">#7A8FA6</div><div class="sw-use">Captions, stat labels, placeholders</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#F5A623"></div><div class="sw-info"><div class="sw-name">Gold</div><div class="sw-hex">#F5A623</div><div class="sw-use">Star ratings ONLY</div></div></div>
+      <div class="swatch"><div class="sw-color" style="background:#FF3B30"></div><div class="sw-info"><div class="sw-name">Error</div><div class="sw-hex">#FF3B30</div><div class="sw-use">Error states, shake animation border</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COMPONENTS ── -->
+<div class="panel" id="p-components">
+  <div class="s-head">Component Specs</div>
+  <div class="s-sub">Every spec below is 8pt-grid-compliant. All padding/gap values are multiples of 8.</div>
+
+  <!-- Navbar -->
+  <div class="comp-block">
+    <div class="comp-head">Navbar <span style="font-size:12px;opacity:.6">sticky · z-index 500</span></div>
+    <div class="comp-body">
+      <table class="spec-table"><thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead><tbody>
+        <tr><td>Height</td><td>64px</td><td><code>spacing.8</code></td></tr>
+        <tr><td>Padding H</td><td>24px</td><td><code>spacing.3</code></td></tr>
+        <tr><td>Background</td><td>#FFFFFF</td><td><code>colors.neutral.white</code></td></tr>
+        <tr><td>Border bottom</td><td>2px solid #EDE5D8</td><td><code>colors.neutral.sand-dark</code></td></tr>
+        <tr><td>Logo font</td><td>Baloo 2 · 800 · 22px</td><td><code>typography.fontSize.lg + fontWeight.extrabold</code></td></tr>
+        <tr><td>Link font</td><td>Noto Sans · 600 · 14px</td><td>—</td></tr>
+        <tr><td>Active link indicator</td><td>3px saffron underline, animates width 0→60%</td><td><code>colors.saffron.default</code></td></tr>
+        <tr><td>Login button bg</td><td>#0A1628 → #1E3A5F on hover</td><td><code>colors.navy.default</code></td></tr>
+        <tr><td>Login button radius</td><td>8px</td><td><code>borderRadius.sm</code></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="comp-block">
+    <div class="comp-head">Stats Bar <span style="font-size:12px;opacity:.6">4-column grid</span></div>
+    <div class="comp-body">
+      <div class="comp-preview">
+        <div style="display:flex;gap:40px;flex-wrap:wrap">
+          <div class="stat-demo"><div class="stat-demo-num">1<span class="stat-demo-unit">Cr+</span></div><div class="stat-demo-label">Active Users</div></div>
+          <div class="stat-demo"><div class="stat-demo-num">22</div><div class="stat-demo-label">Languages Supported</div></div>
+          <div class="stat-demo"><div class="stat-demo-num">28</div><div class="stat-demo-label">States Covered</div></div>
+          <div class="stat-demo"><div class="stat-demo-num">99<span class="stat-demo-unit">.2%</span></div><div class="stat-demo-label">Accuracy Rate</div></div>
+        </div>
+      </div>
+      <table class="spec-table"><thead><tr><th>Property</th><th>Value</th><th>Note</th></tr></thead><tbody>
+        <tr><td>Cell padding V</td><td>32px</td><td>4×8 ✓</td></tr>
+        <tr><td>Cell padding H</td><td>24px</td><td>3×8 ✓</td></tr>
+        <tr><td>Number colour</td><td>#0A1628 (navy)</td><td>ALL numbers navy — 1Cr+ and 99.2% both use navy, not saffron</td></tr>
+        <tr><td>Unit colour (Cr+, .2%)</td><td>#0A1628 (navy)</td><td>Fixed from previous version — was incorrectly saffron</td></tr>
+        <tr><td>Label colour</td><td>#7A8FA6 (text-light)</td><td>—</td></tr>
+        <tr><td>Hover bottom bar</td><td>3px saffron, width animates 0→60%</td><td>spring easing</td></tr>
+        <tr><td>Hover bg</td><td>#FFF3E8 (saffron tint)</td><td>—</td></tr>
+        <tr><td>"Target milestone" note</td><td>REMOVED</td><td>Per spec — do not add back</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- Feature Card -->
+  <div class="comp-block">
+    <div class="comp-head">Feature Card <span style="font-size:12px;opacity:.6">3-col grid · hover magnetic</span></div>
+    <div class="comp-body">
+      <table class="spec-table"><thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead><tbody>
+        <tr><td>Padding V</td><td>32px</td><td><code>spacing.4</code></td></tr>
+        <tr><td>Padding H</td><td>24px</td><td><code>spacing.3</code></td></tr>
+        <tr><td>Grid gap</td><td>24px</td><td><code>spacing.3</code></td></tr>
+        <tr><td>Margin top (grid)</td><td>48px</td><td><code>spacing.6</code></td></tr>
+        <tr><td>Border radius</td><td>22px</td><td><code>borderRadius.lg</code></td></tr>
+        <tr><td>Icon size</td><td>56×56px</td><td><code>spacing.7</code></td></tr>
+        <tr><td>Icon radius</td><td>14px</td><td><code>borderRadius.md</code></td></tr>
+        <tr><td>Title margin-bottom</td><td>8px</td><td><code>spacing.1</code></td></tr>
+        <tr><td>Desc margin-bottom</td><td>24px</td><td><code>spacing.3</code></td></tr>
+        <tr><td>Hover: top accent bar</td><td>4px, colour per card, scaleX 0→1</td><td>—</td></tr>
+        <tr><td>Hover: shimmer sweep</td><td>translateX -100%→100%, rgba white</td><td>—</td></tr>
+        <tr><td>Hover: translateY</td><td>-8px</td><td><code>spacing.1</code> negative</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- CTA Button -->
+  <div class="comp-block">
+    <div class="comp-head">Primary CTA Button</div>
+    <div class="comp-body">
+      <div class="comp-preview">
+        <button class="btn-sf">🚀 GET STARTED FREE</button>
+      </div>
+      <table class="spec-table"><thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead><tbody>
+        <tr><td>Padding V</td><td>16px</td><td><code>spacing.2</code></td></tr>
+        <tr><td>Padding H</td><td>36px</td><td>—</td></tr>
+        <tr><td>Border radius</td><td>14px</td><td><code>borderRadius.md</code></td></tr>
+        <tr><td>Font</td><td>Baloo 2 · 800 · 17px</td><td><code>typography.fontWeight.extrabold</code></td></tr>
+        <tr><td>Background</td><td>#FF6B00</td><td><code>colors.saffron.default</code></td></tr>
+        <tr><td>Shadow</td><td>0 6px 28px rgba(255,107,0,.35)</td><td>—</td></tr>
+        <tr><td>Ring pulse</td><td>3px border, 2.5s ease-in-out infinite, scale 1→1.14</td><td>—</td></tr>
+        <tr><td>Hover</td><td>translateY -3px, shadow amplify</td><td>—</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <!-- Language Pill -->
+  <div class="comp-block">
+    <div class="comp-head">Language Pill</div>
+    <div class="comp-body">
+      <div class="comp-preview" style="background:var(--navy);gap:8px;flex-wrap:wrap">
+        <button class="lang-pill-demo a" onclick="togglePill(event)">✓ हिन्दी</button>
+        <button class="lang-pill-demo" onclick="togglePill(event)">English</button>
+        <button class="lang-pill-demo" onclick="togglePill(event)">தமிழ்</button>
+        <button class="lang-pill-demo" onclick="togglePill(event)">বাংলা</button>
+      </div>
+      <table class="spec-table"><thead><tr><th>State</th><th>Value</th></tr></thead><tbody>
+        <tr><td>Padding</td><td>7px 16px (vertical off-grid but visually balanced)</td></tr>
+        <tr><td>Border radius</td><td>100px (pill)</td></tr>
+        <tr><td>Default bg</td><td>rgba(255,255,255,.07) on navy</td></tr>
+        <tr><td>Active bg</td><td>#FF6B00 saffron</td></tr>
+        <tr><td>Active: checkmark prefix ✓</td><td>Added via CSS ::before</td></tr>
+        <tr><td>Active: scale</td><td>1.08</td></tr>
+        <tr><td>Active: shadow</td><td>0 6px 28px rgba(255,107,0,.35)</td></tr>
+        <tr><td>Transition</td><td>all .22s cubic-bezier(.34,1.56,.64,1) — spring</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ── MOTION ── -->
+<div class="panel" id="p-motion">
+  <div class="s-head">Motion &amp; Micro-interaction Spec</div>
+  <div class="s-sub">6 interactions. Each designed for low-literacy guidance, action feedback, or cultural delight.</div>
+
+  <div class="mi-card">
+    <div class="mi-head"><div class="mi-num">1</div><div><div class="mi-title">Language-First Selector</div><div class="mi-trigger">Trigger: page load · on pill tap</div></div></div>
+    <div class="mi-body">
+      <div class="mi-desc">First interaction on the page. Pills display scripts in their own language (हिन्दी not Hindi). Spring-bounce on select, ✓ checkmark prefix appears, toast confirms selection. Guides pre-literate users by making language choice the single entry point.</div>
+      <div class="mi-props">
+        <div class="mi-prop"><div class="mi-prop-label">Easing</div><div class="mi-prop-val">cubic-bezier(.34,1.56,.64,1)</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Duration</div><div class="mi-prop-val">220ms</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Scale active</div><div class="mi-prop-val">1.08×</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Haptic</div><div class="mi-prop-val">vibrate([20])</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mi-card">
+    <div class="mi-head"><div class="mi-num">2</div><div><div class="mi-title">CTA Ripple + Pulsing Ring</div><div class="mi-trigger">Trigger: GET STARTED tap</div></div></div>
+    <div class="mi-body">
+      <div class="mi-desc">Ripple spreads from touch point (confirms the exact tap registered). Ring pulse radiates outward every 2.5s at idle — draws attention without being distracting. On tap, haptic triple-buzz pattern (20ms–40ms–20ms) mirrors "you did it" confirmation feel from UPI apps.</div>
+      <div class="mi-props">
+        <div class="mi-prop"><div class="mi-prop-label">Ripple duration</div><div class="mi-prop-val">550ms linear</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Ring pulse period</div><div class="mi-prop-val">2500ms ease-in-out ∞</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Ring scale</div><div class="mi-prop-val">1 → 1.14 → fade</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Haptic pattern</div><div class="mi-prop-val">[20, 40, 20]ms</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mi-card">
+    <div class="mi-head"><div class="mi-num">3</div><div><div class="mi-title">Loading Overlay — Diya 🪔</div><div class="mi-trigger">Trigger: after CTA tap</div></div></div>
+    <div class="mi-body">
+      <div class="mi-desc">Full-screen navy overlay. Diya emoji flickers (scale + rotate, 1s loop). Progress bar fills green→saffron in 1.8s. 3-step dot tracker advances with spinning active dot, turns green ✓ on complete. Then closes and fires success screen. Familiar flame metaphor = warmth + patience.</div>
+      <div class="mi-props">
+        <div class="mi-prop"><div class="mi-prop-label">Backdrop blur</div><div class="mi-prop-val">8px</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Bar fill duration</div><div class="mi-prop-val">1800ms cubic-bezier(.4,0,.2,1)</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Step advance</div><div class="mi-prop-val">every 600ms</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Diya wiggle</div><div class="mi-prop-val">scale+rotate, 1s ease-in-out ∞</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mi-card">
+    <div class="mi-head"><div class="mi-num">4</div><div><div class="mi-title">Diwali Confetti Celebration</div><div class="mi-trigger">Trigger: registration success</div></div></div>
+    <div class="mi-body">
+      <div class="mi-desc">60 confetti pieces in saffron / navy / green burst from random positions. Success card springs in with scale(.5,rotate(-5deg)) → scale(1). Strong haptic burst [30,50,30,50,100]ms. Says "you did it!" in a way that transcends literacy — pure visual joy.</div>
+      <div class="mi-props">
+        <div class="mi-prop"><div class="mi-prop-label">Piece count</div><div class="mi-prop-val">60 particles</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Fall duration</div><div class="mi-prop-val">1.5–3.5s random</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Card spring</div><div class="mi-prop-val">cubic-bezier(.34,1.56,.64,1) 500ms</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Haptic pattern</div><div class="mi-prop-val">[30,50,30,50,100]ms</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mi-card">
+    <div class="mi-head"><div class="mi-num">5</div><div><div class="mi-title">Feature Card Shimmer + Icon Bounce</div><div class="mi-trigger">Trigger: hover / tap on feature card</div></div></div>
+    <div class="mi-body">
+      <div class="mi-desc">Top accent bar slides in from left (scaleX 0→1). Shimmer sweep crosses the card. Icon scales 1.15× and rotates -5° — "picking it up" micro-gesture. Card lifts -8px with amplified shadow. All feels like touching something real and responsive.</div>
+      <div class="mi-props">
+        <div class="mi-prop"><div class="mi-prop-label">Lift translateY</div><div class="mi-prop-val">-8px (=1×8)</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Accent bar easing</div><div class="mi-prop-val">cubic-bezier(.34,1.56,.64,1) 300ms</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Shimmer</div><div class="mi-prop-val">translateX -100%→100%, 500ms</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Icon transform</div><div class="mi-prop-val">scale(1.15) rotate(-5deg)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mi-card">
+    <div class="mi-head"><div class="mi-num">6</div><div><div class="mi-title">Voice FAB — Active State Ring</div><div class="mi-trigger">Trigger: mic button tap</div></div></div>
+    <div class="mi-body">
+      <div class="mi-desc">FAB switches red 🔴 and pulses a growing ring (box-shadow 0→18px, fade) every 800ms — clear visual "I am listening" signal for low-literacy users. On result: toast shows transcript. On error: toast explains what went wrong simply.</div>
+      <div class="mi-props">
+        <div class="mi-prop"><div class="mi-prop-label">Listening bg</div><div class="mi-prop-val">#FF3B30 (error red)</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Ring pulse</div><div class="mi-prop-val">box-shadow 0→18px, 800ms ease-in-out ∞</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">Speech API lang</div><div class="mi-prop-val">currentLang + "-IN"</div></div>
+        <div class="mi-prop"><div class="mi-prop-label">FAB entry</div><div class="mi-prop-val">scale(0)rotate(-30°)→scale(1), spring, delay 1.2s</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FIGMA IMPORT ── -->
+<div class="panel" id="p-figma">
+  <div class="s-head">Figma Import Guide</div>
+  <div class="s-sub">Two ways to get this into Figma — Tokens Studio (recommended) or manual frame setup.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+    <div class="instructions">
+      <div class="instr-title">🔌 Method 1 — Tokens Studio Plugin (Recommended)</div>
+      <div class="instr-step"><div class="instr-n">1</div><div>Install <strong>Tokens Studio for Figma</strong> from the Figma Community (free)</div></div>
+      <div class="instr-step"><div class="instr-n">2</div><div>Open the plugin → click <strong>Load tokens from file</strong></div></div>
+      <div class="instr-step"><div class="instr-n">3</div><div>Upload <code>figma-tokens.json</code> included in this package</div></div>
+      <div class="instr-step"><div class="instr-n">4</div><div>Click <strong>Apply all tokens to document</strong></div></div>
+      <div class="instr-step"><div class="instr-n">5</div><div>Colour, spacing, typography styles populate instantly across all frames</div></div>
+    </div>
+
+    <div class="instructions">
+      <div class="instr-title">🖼️ Method 2 — HTML to Figma Plugin</div>
+      <div class="instr-step"><div class="instr-n">1</div><div>Install <strong>HTML to Figma</strong> plugin (by Builder.io, free)</div></div>
+      <div class="instr-step"><div class="instr-n">2</div><div>Open <code>ai-india-fixed.html</code> in Chrome</div></div>
+      <div class="instr-step"><div class="instr-n">3</div><div>Run the plugin → it screenshots and imports the rendered page as Figma frames</div></div>
+      <div class="instr-step"><div class="instr-n">4</div><div>Each section imports as a separate auto-layout frame</div></div>
+      <div class="instr-step"><div class="instr-n">5</div><div>Then apply tokens from <code>figma-tokens.json</code> to make elements editable</div></div>
+    </div>
+  </div>
+
+  <div class="instructions" style="margin-bottom:24px">
+    <div class="instr-title">📐 Figma Frame Setup (Manual)</div>
+    <div class="instr-step"><div class="instr-n">1</div><div>Create frames: <strong>Desktop 1440×auto</strong>, <strong>Mobile 390×auto</strong>. Use Auto Layout, Vertical, gap 0.</div></div>
+    <div class="instr-step"><div class="instr-n">2</div><div>Create a <strong>Colour Styles</strong> library: Saffron/500=#FF6B00, Navy/500=#0A1628, Green/500=#0E8C00, plus all tints. Name them <code>brand/saffron</code>, <code>brand/navy</code>, <code>brand/green</code>.</div></div>
+    <div class="instr-step"><div class="instr-n">3</div><div>Set <strong>spacing base = 8</strong> in Layout Grid settings. Use 8/16/24/32/40/48/64/80px for all padding and gap values — never 10, 15, 22, or 25.</div></div>
+    <div class="instr-step"><div class="instr-n">4</div><div>Create <strong>Text Styles</strong>: Hero/H1 (Baloo2·800·56), Section/H2 (Baloo2·800·32), Feature/Title (Baloo2·800·18), Body/Base (NotoSans·400·15), Label/XS (NotoSans·800·11·uppercase).</div></div>
+    <div class="instr-step"><div class="instr-n">5</div><div>Stats: number layer = <code>brand/navy</code> fill. Unit layer (Cr+, .2%) = <code>brand/navy</code> fill. No saffron on stat numbers.</div></div>
+    <div class="instr-step"><div class="instr-n">6</div><div>Create a <strong>Component Set</strong> for Feature Card with variants: Default / Hover / Kisan(green) / Health(saffron) / Shiksha(navy) / Sarkari(saffron) / Paisa(green) / Bhasha(navy).</div></div>
+  </div>
+
+  <div style="background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--sand-d)">
+    <div style="font-family:var(--d);font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px">📦 Files in this package</div>
+    <table class="spec-table"><thead><tr><th>File</th><th>Purpose</th><th>How to use</th></tr></thead><tbody>
+      <tr><td><code>ai-india-fixed.html</code></td><td>Production-ready webpage</td><td>Open in browser / deploy to GitHub Pages</td></tr>
+      <tr><td><code>figma-tokens.json</code></td><td>Design tokens for Figma</td><td>Import via Tokens Studio plugin</td></tr>
+      <tr><td><code>figma-spec.html</code></td><td>This design spec document</td><td>Share with developers / open in browser</td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+function togglePill(e) {
+  document.querySelectorAll('.lang-pill-demo').forEach(p => p.classList.remove('a'));
+  e.target.classList.add('a');
+  if(!e.target.textContent.startsWith('✓')) e.target.textContent = '✓ ' + e.target.textContent;
+  document.querySelectorAll('.lang-pill-demo:not(.a)').forEach(p => { p.textContent = p.textContent.replace('✓ ',''); });
+}
+</script>
+</body>
+</html>

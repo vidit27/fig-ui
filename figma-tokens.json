@@ -1,0 +1,171 @@
+{
+  "$metadata": {
+    "tokenSetOrder": ["global","spacing","typography","colors","components"]
+  },
+  "global": {
+    "brand": {
+      "name": "AI for India",
+      "version": "2.0",
+      "grid": "8pt"
+    }
+  },
+  "spacing": {
+    "description": "All spacing is a multiple of 8px (base unit)",
+    "1": { "value": "8", "type": "spacing", "comment": "1×8" },
+    "2": { "value": "16", "type": "spacing", "comment": "2×8" },
+    "3": { "value": "24", "type": "spacing", "comment": "3×8" },
+    "4": { "value": "32", "type": "spacing", "comment": "4×8" },
+    "5": { "value": "40", "type": "spacing", "comment": "5×8" },
+    "6": { "value": "48", "type": "spacing", "comment": "6×8" },
+    "7": { "value": "56", "type": "spacing", "comment": "7×8" },
+    "8": { "value": "64", "type": "spacing", "comment": "8×8" },
+    "10": { "value": "80", "type": "spacing", "comment": "10×8 — section vertical padding" },
+    "14": { "value": "112", "type": "spacing", "comment": "14×8" },
+    "16": { "value": "128", "type": "spacing", "comment": "16×8" }
+  },
+  "borderRadius": {
+    "sm":   { "value": "8",  "type": "borderRadius", "comment": "1×8 — buttons, badges" },
+    "md":   { "value": "14", "type": "borderRadius", "comment": "~1.75×8 — cards" },
+    "lg":   { "value": "22", "type": "borderRadius", "comment": "~2.75×8 — large cards" },
+    "pill": { "value": "100","type": "borderRadius", "comment": "pill — language pills, tags" }
+  },
+  "colors": {
+    "saffron": {
+      "default": { "value": "#FF6B00", "type": "color", "comment": "Primary CTA, accents" },
+      "bright":  { "value": "#FF8C35", "type": "color", "comment": "Hover states, hero em" },
+      "dark":    { "value": "#CC5500", "type": "color", "comment": "Active/pressed states" },
+      "tint":    { "value": "#FFF3E8", "type": "color", "comment": "Card backgrounds, hover fills" }
+    },
+    "navy": {
+      "default": { "value": "#0A1628", "type": "color", "comment": "Primary bg, text, nav" },
+      "mid":     { "value": "#132440", "type": "color", "comment": "Hero gradient end" },
+      "light":   { "value": "#1E3A5F", "type": "color", "comment": "Hover states" },
+      "tint":    { "value": "#EEF3FA", "type": "color", "comment": "Card tint for navy-themed icons" }
+    },
+    "green": {
+      "default": { "value": "#0E8C00", "type": "color", "comment": "Success states, Kisan AI accent" },
+      "bright":  { "value": "#12B000", "type": "color", "comment": "Hover/active success" },
+      "dark":    { "value": "#0A6800", "type": "color", "comment": "Pressed success" },
+      "tint":    { "value": "#EDFAEB", "type": "color", "comment": "Success backgrounds" }
+    },
+    "neutral": {
+      "sand":      { "value": "#FAF6F0", "type": "color", "comment": "Page background" },
+      "sand-dark": { "value": "#EDE5D8", "type": "color", "comment": "Borders, dividers" },
+      "white":     { "value": "#FFFFFF", "type": "color", "comment": "Card backgrounds" },
+      "text":      { "value": "#0A1628", "type": "color", "comment": "Primary text (= navy)" },
+      "text-mid":  { "value": "#3D5168", "type": "color", "comment": "Secondary text" },
+      "text-light":{ "value": "#7A8FA6", "type": "color", "comment": "Captions, labels" }
+    },
+    "semantic": {
+      "gold":  { "value": "#F5A623", "type": "color", "comment": "Star ratings only" },
+      "error": { "value": "#FF3B30", "type": "color", "comment": "Error states" }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": { "value": "Baloo 2", "type": "fontFamilies", "comment": "Headings, CTAs, logo — supports Devanagari" },
+      "body":    { "value": "Noto Sans", "type": "fontFamilies", "comment": "Body, labels, captions — all Indian scripts" }
+    },
+    "fontWeight": {
+      "regular": { "value": "400", "type": "fontWeights" },
+      "medium":  { "value": "500", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" },
+      "bold":    { "value": "700", "type": "fontWeights" },
+      "extrabold":{ "value": "800", "type": "fontWeights" }
+    },
+    "fontSize": {
+      "xs":   { "value": "11", "type": "fontSizes", "comment": "Labels, tags" },
+      "sm":   { "value": "12", "type": "fontSizes", "comment": "Captions" },
+      "body": { "value": "13", "type": "fontSizes", "comment": "Card descriptions" },
+      "base": { "value": "15", "type": "fontSizes", "comment": "Body copy" },
+      "md":   { "value": "17", "type": "fontSizes", "comment": "CTA buttons" },
+      "lg":   { "value": "18", "type": "fontSizes", "comment": "Feature titles" },
+      "xl":   { "value": "24", "type": "fontSizes", "comment": "Section H2 min" },
+      "2xl":  { "value": "32", "type": "fontSizes", "comment": "Stats numbers" },
+      "3xl":  { "value": "40", "type": "fontSizes", "comment": "Stats numbers large" },
+      "hero": { "value": "56", "type": "fontSizes", "comment": "Hero H1 desktop" }
+    },
+    "lineHeight": {
+      "tight":  { "value": "1.1", "type": "lineHeights", "comment": "Hero H1" },
+      "snug":   { "value": "1.2", "type": "lineHeights", "comment": "Section titles" },
+      "normal": { "value": "1.6", "type": "lineHeights", "comment": "Body default" },
+      "loose":  { "value": "1.75","type": "lineHeights", "comment": "Long-form body" }
+    }
+  },
+  "components": {
+    "navbar": {
+      "height":      { "value": "{spacing.8}", "type": "sizing", "comment": "64px = 8×8" },
+      "paddingH":    { "value": "{spacing.3}", "type": "spacing", "comment": "24px" },
+      "bg":          { "value": "{colors.neutral.white}", "type": "color" },
+      "borderBottom":{ "value": "2px solid {colors.neutral.sand-dark}", "type": "border" }
+    },
+    "langBar": {
+      "bg":        { "value": "{colors.navy.default}", "type": "color" },
+      "paddingV":  { "value": "{spacing.2}", "type": "spacing", "comment": "16px" },
+      "paddingH":  { "value": "{spacing.3}", "type": "spacing", "comment": "24px" },
+      "pillPaddingV":  { "value": "7", "type": "spacing" },
+      "pillPaddingH":  { "value": "{spacing.2}", "type": "spacing", "comment": "16px" },
+      "pillRadius": { "value": "{borderRadius.pill}", "type": "borderRadius" }
+    },
+    "hero": {
+      "paddingV":   { "value": "{spacing.10}", "type": "spacing", "comment": "80px = 10×8" },
+      "paddingH":   { "value": "{spacing.3}", "type": "spacing", "comment": "24px" },
+      "bg":         { "value": "{colors.navy.default}", "type": "color" },
+      "titleColor": { "value": "#FFFFFF", "type": "color" },
+      "accentColor":{ "value": "{colors.saffron.bright}", "type": "color" }
+    },
+    "statsBar": {
+      "bg":         { "value": "{colors.neutral.white}", "type": "color" },
+      "paddingV":   { "value": "{spacing.4}", "type": "spacing", "comment": "32px = 4×8" },
+      "paddingH":   { "value": "{spacing.3}", "type": "spacing", "comment": "24px = 3×8" },
+      "numColor":   { "value": "{colors.navy.default}", "type": "color", "comment": "ALL stat numbers navy — 1Cr+ and 99.2% both navy" },
+      "unitColor":  { "value": "{colors.navy.default}", "type": "color", "comment": "Units (Cr+, %) also navy — not saffron" },
+      "labelColor": { "value": "{colors.neutral.text-light}", "type": "color" }
+    },
+    "featureCard": {
+      "bg":        { "value": "{colors.neutral.white}", "type": "color" },
+      "paddingV":  { "value": "{spacing.4}", "type": "spacing", "comment": "32px" },
+      "paddingH":  { "value": "{spacing.3}", "type": "spacing", "comment": "24px" },
+      "gap":       { "value": "{spacing.3}", "type": "spacing", "comment": "Grid gap 24px" },
+      "radius":    { "value": "{borderRadius.lg}", "type": "borderRadius" },
+      "iconSize":  { "value": "{spacing.7}", "type": "sizing", "comment": "56px = 7×8" },
+      "iconRadius":{ "value": "{borderRadius.md}", "type": "borderRadius" }
+    },
+    "testimonialCard": {
+      "bg":      { "value": "{colors.neutral.white}", "type": "color" },
+      "paddingV":{ "value": "{spacing.4}", "type": "spacing", "comment": "32px" },
+      "paddingH":{ "value": "{spacing.3}", "type": "spacing", "comment": "24px" },
+      "gap":     { "value": "{spacing.3}", "type": "spacing", "comment": "Grid gap 24px" },
+      "radius":  { "value": "{borderRadius.lg}", "type": "borderRadius" },
+      "avatarSize":{ "value": "{spacing.6}", "type": "sizing", "comment": "48px = 6×8" }
+    },
+    "ctaPrimary": {
+      "bg":        { "value": "{colors.saffron.default}", "type": "color" },
+      "color":     { "value": "#FFFFFF", "type": "color" },
+      "paddingV":  { "value": "{spacing.2}", "type": "spacing", "comment": "16px" },
+      "paddingH":  { "value": "36", "type": "spacing" },
+      "radius":    { "value": "{borderRadius.md}", "type": "borderRadius" },
+      "fontSize":  { "value": "{typography.fontSize.md}", "type": "fontSizes" },
+      "fontWeight":{ "value": "{typography.fontWeight.extrabold}", "type": "fontWeights" }
+    },
+    "section": {
+      "paddingV": { "value": "{spacing.10}", "type": "spacing", "comment": "80px = 10×8" },
+      "paddingH": { "value": "{spacing.3}",  "type": "spacing", "comment": "24px = 3×8" },
+      "maxWidth": { "value": "1120", "type": "sizing" }
+    },
+    "footer": {
+      "bg":       { "value": "{colors.navy.default}", "type": "color" },
+      "paddingT": { "value": "{spacing.8}", "type": "spacing", "comment": "64px = 8×8" },
+      "paddingH": { "value": "{spacing.3}", "type": "spacing", "comment": "24px = 3×8" },
+      "colGap":   { "value": "{spacing.5}", "type": "spacing", "comment": "40px = 5×8" },
+      "colPaddingB":{ "value": "{spacing.6}", "type": "spacing", "comment": "48px = 6×8" }
+    },
+    "voiceFab": {
+      "size":    { "value": "{spacing.8}", "type": "sizing", "comment": "64px = 8×8" },
+      "bg":      { "value": "{colors.saffron.default}", "type": "color" },
+      "right":   { "value": "26", "type": "spacing" },
+      "bottom":  { "value": "{spacing.4}", "type": "spacing", "comment": "32px" },
+      "radius":  { "value": "{borderRadius.pill}", "type": "borderRadius" }
+    }
+  }
+}
